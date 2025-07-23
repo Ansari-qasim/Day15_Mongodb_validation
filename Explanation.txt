@@ -1,0 +1,27 @@
+Why Validation is Important in Databases
+Validation is essential in databases because it ensures that only clean, correct, and expected data is stored. Without validation, inconsistent or incomplete data can cause bugs, logic errors, and data corruption. For example, saving a user without a name or with an invalid email can break the application logic. By enforcing rules at the schema level, Mongoose helps prevent these problems and maintains the quality and integrity of the data in MongoDB.
+ Types of Schema Validation Rules in Mongoose
+Mongoose provides several built-in validation options:
+
+required: Ensures the field is not empty.
+
+minlength / maxlength: Limits the number of characters in a string.
+
+match: Validates strings against a regular expression (e.g., valid email).
+
+enum: Restricts values to a fixed list.
+
+unique: Ensures no duplicate values (like email). (Note: works with indexing)
+
+validate: Allows for custom validation functions.
+
+These rules are defined inside the schema for each field.
+
+How Mongoose Handles Validation Internally (.validate())
+When a document is created or updated using save() or create(), Mongoose automatically calls its internal .validate() method. This method checks all validation rules defined in the schema before the data is sent to MongoDB. If any validation fails, Mongoose throws a ValidationError, and the operation is aborted.
+
+You can also run validation manually using:
+await student.validate();
+
+in the API, this is handled inside a try-catch block where the error is caught and a user-friendly error message is returned.
+
